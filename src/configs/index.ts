@@ -6,5 +6,5 @@ export const PATH = {
   USER_CREATE: "/user/create",
   USER_SHOW: "/user/show",
   USER_EDIT: "/user/edit",
-  LANDING_PAGE: "/lading-page"
+  LANDING_PAGE: "/landing-page"
 }

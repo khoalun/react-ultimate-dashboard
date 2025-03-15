@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from 'react-toastify';
+
 import { PATH } from "../../configs";
 
 /*
@@ -18,8 +21,88 @@ function Login() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-        
-    navigate(PATH.ROOT);
+
+      const bodyData = {
+        data: {
+          email: 'tony@gmail.com',
+          password: '123456',
+        }
+      }
+    axios('https://tony-auth-express-vdee-6j0s-fhovok9bu.vercel.app/api/user/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: bodyData
+    })
+      .then(res => {
+        toast.success('Login Successfully!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        const access_token = res.data.data.access_token;
+        window.localStorage.setItem('access_token', access_token);
+        navigate(PATH.ROOT);
+      })
+      .catch(err => {
+        const message = err.response?.data?.msg || 'Login Fail!'
+        toast.error(message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .finally(() => {
+        // hide loading
+      })
+    // try {
+    //   const bodyData = {
+    //     data: {
+    //       email: 'tony@gmail.com',
+    //       password: '123456',
+    //     }
+    //   }
+    //   const res = await axios('https://tony-auth-express-vdee-6j0s-fhovok9bu.vercel.app/api/user/signin', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     data: bodyData
+    //   })
+    //   toast.success('Login Successfully!', {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: false,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    //   const access_token = res.data.data.access_token;
+    //   window.localStorage.setItem('access_token', access_token);
+    //   navigate(PATH.ROOT);
+    // } catch (err: any) {
+    //   const message = err.response?.data?.msg || 'Login Fail!'
+    //   toast.error(message, {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: false,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    // }
+    
   }
 
   return (

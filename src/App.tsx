@@ -1,9 +1,12 @@
-import { RoutersMain } from "./routes/routes"
+import { RoutersMain } from "./routes/routes";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <>
       <RoutersMain />
+
+      <ToastContainer />
     </>
   )
 }

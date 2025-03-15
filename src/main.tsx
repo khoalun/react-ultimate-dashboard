@@ -6,11 +6,14 @@ import './styles/tailwind.css';
 import './styles/index.css';
 
 import App from './App.tsx'
+import { SidebarProvider } from './contexts/sidebar-context.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <SidebarProvider>
+        <App />
+      </SidebarProvider>
     </BrowserRouter>
   </StrictMode>,
 )
