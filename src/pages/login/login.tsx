@@ -22,12 +22,12 @@ function Login() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-      const bodyData = {
-        data: {
-          email: 'tony@gmail.com',
-          password: '123456',
-        }
+    const bodyData = {
+      data: {
+        email: 'tony@gmail.com',
+        password: '123456',
       }
+    }
     axios('https://tony-auth-express-vdee-6j0s-fhovok9bu.vercel.app/api/user/signin', {
       method: 'POST',
       headers: {
@@ -45,8 +45,11 @@ function Login() {
           draggable: true,
           progress: undefined,
         });
-        const access_token = res.data.data.access_token;
+        // const access_token = res.data.data.access_token;
+        // const refresh_token = res.data.data.refresh_token;
+        const { access_token, refresh_token } = res.data.data || {};
         window.localStorage.setItem('access_token', access_token);
+        window.localStorage.setItem('refresh_token', refresh_token);
         navigate(PATH.ROOT);
       })
       .catch(err => {

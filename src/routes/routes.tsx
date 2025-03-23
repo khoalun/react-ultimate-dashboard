@@ -18,6 +18,7 @@ const CreateUser = React.lazy(() => import('../pages/user').then(module => ({ de
 const EditUser = React.lazy(() => import('../pages/user').then(module => ({ default: module.EditUser })));
 
 const NotFound = React.lazy(() => import('../pages/other-pages').then(module => ({ default: module.NotFound })));
+const UnauthoriedPage = React.lazy(() => import('../pages/other-pages').then(module => ({ default: module.UnauthoriedPage })));
 
 const routesConfig = [
   {
@@ -63,6 +64,10 @@ const routesConfig = [
     component: EditUser,
     layout: Template1,
     guard: AuthRoutes
+  },,
+  {
+    path: PATH.UNAUTHORIED_PAGE,
+    component: UnauthoriedPage,
   },
 ]
 
@@ -71,13 +76,13 @@ function renderRoutes() {
     <React.Suspense fallback={<Spinner />}>
       <Routes>
         {routesConfig.map((route) => {
-          const Component = route.component || React.Fragment;
+          const Component = route?.component || React.Fragment;
           const Layout = route?.layout || React.Fragment;
           const Guard = route?.guard || React.Fragment;
           return (
             <Route 
-              key={route.path} 
-              path={route.path} 
+              key={route?.path} 
+              path={route?.path} 
               element={
                 <Guard>
                   <Layout>
