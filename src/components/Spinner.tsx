@@ -1,7 +1,14 @@
+import { useSelector } from "react-redux"
+import { RootState } from '../store';
+
 export default function Spinner() {
+  const showSpinner = useSelector((state: RootState) => state.app.showSpinner)
+
+  if (!showSpinner) return null;
+
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center">
-      {/* <div className="absolute zIndex-1 bg-black w-full h-full opacity-[0.7]"/> */}
+      <div className="absolute zIndex-1 bg-black w-full h-full opacity-[0.7]"/>
       <div className="flex items-center">
         <svg
           aria-hidden="true"

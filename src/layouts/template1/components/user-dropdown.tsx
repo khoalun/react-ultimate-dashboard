@@ -5,6 +5,9 @@ import { PATH } from "../../../configs";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 
+// 5 page -> 3 call api -> send token in header api (x3) -> server get token -> from token get user -> yes -> accept api -> return data
+// 10 page -> 30 api -> send token in header api x30
+
 export default function UserDropdown() {
   const user = useSelector((state: RootState) => state.app.user);
 

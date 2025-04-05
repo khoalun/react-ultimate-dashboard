@@ -9,6 +9,9 @@ import './styles/index.css';
 
 import App from './App.tsx'
 import { SidebarProvider } from './contexts/sidebar-context.tsx';
+import { initRequest } from './services/initRequest.ts'
+
+initRequest(store);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

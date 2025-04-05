@@ -8,4 +8,5 @@ export const PATH = {
   USER_EDIT: "/user/edit",
   LANDING_PAGE: "/landing-page",
   UNAUTHORIED_PAGE:  "/401",
+  RESTRICT_ACCESS_PAGE:  "/403",
 }

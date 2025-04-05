@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 import { PATH } from "../../configs";
+import { httpRequest } from "../../services/initRequest";
 
 /*
 call api
@@ -22,90 +23,96 @@ function Login() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const bodyData = {
-      data: {
-        email: 'tony@gmail.com',
-        password: '123456',
-      }
-    }
-    axios('https://tony-auth-express-vdee-6j0s-fhovok9bu.vercel.app/api/user/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: bodyData
-    })
-      .then(res => {
-        toast.success('Login Successfully!', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        // const access_token = res.data.data.access_token;
-        // const refresh_token = res.data.data.refresh_token;
-        const { access_token, refresh_token } = res.data.data || {};
-        window.localStorage.setItem('access_token', access_token);
-        window.localStorage.setItem('refresh_token', refresh_token);
-        navigate(PATH.ROOT);
-      })
-      .catch(err => {
-        const message = err.response?.data?.msg || 'Login Fail!'
-        toast.error(message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      })
-      .finally(() => {
-        // hide loading
-      })
-    // try {
-    //   const bodyData = {
-    //     data: {
-    //       email: 'tony@gmail.com',
-    //       password: '123456',
-    //     }
+    // const bodyData = {
+    //   data: {
+    //     email: 'tony@gmail.com',
+    //     password: '123456',
     //   }
-    //   const res = await axios('https://tony-auth-express-vdee-6j0s-fhovok9bu.vercel.app/api/user/signin', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     data: bodyData
-    //   })
-    //   toast.success('Login Successfully!', {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: false,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //   });
-    //   const access_token = res.data.data.access_token;
-    //   window.localStorage.setItem('access_token', access_token);
-    //   navigate(PATH.ROOT);
-    // } catch (err: any) {
-    //   const message = err.response?.data?.msg || 'Login Fail!'
-    //   toast.error(message, {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: false,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //   });
     // }
+    // axios('https://tony-auth-express-vdee-6j0s-fhovok9bu.vercel.app/api/user/signin', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   data: bodyData
+    // })
+    //   .then(res => {
+    //     toast.success('Login Successfully!', {
+    //       position: "top-right",
+    //       autoClose: 3000,
+    //       hideProgressBar: false,
+    //       closeOnClick: false,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+    //     // const access_token = res.data.data.access_token;
+    //     // const refresh_token = res.data.data.refresh_token;
+    //     const { access_token, refresh_token } = res.data.data || {};
+    //     window.localStorage.setItem('access_token', access_token);
+    //     window.localStorage.setItem('refresh_token', refresh_token);
+    //     navigate(PATH.ROOT);
+    //   })
+    //   .catch(err => {
+    //     const message = err.response?.data?.msg || 'Login Fail!'
+    //     toast.error(message, {
+    //       position: "top-right",
+    //       autoClose: 3000,
+    //       hideProgressBar: false,
+    //       closeOnClick: false,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+    //   })
+    //   .finally(() => {
+    //     // hide loading
+    //   })
+    try {
+      const bodyData = {
+        data: {
+          email: 'admin@gmail.com',
+          password: '123456',
+        }
+      }
+      const res = await httpRequest('/api/user/signin', {
+        method: 'POST',
+        data: bodyData,
+        showSpinner: true
+      })
+      toast.success('Login Successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      const access_token = res.data.data.access_token;
+      const refresh_token = res.data.data.refresh_token;
+      window.localStorage.setItem('access_token', access_token);
+      window.localStorage.setItem('refresh_token', refresh_token);
+      // navigate(PATH.ROOT);
+    } catch (err: any) {
+      const message = err.response?.data?.msg || 'Login Fail!'
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     
+  }
+  
+  async function getUser() {
+    await httpRequest('/api/auth', {
+      method: 'POST',
+    })
   }
 
   return (
@@ -165,6 +172,15 @@ function Login() {
               >
                 Sign in
               </button>
+
+              <button
+                type="button"
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                onClick={getUser}
+              >
+                get user
+              </button>
+
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <a

@@ -1,5 +1,6 @@
 import { RoutersMain } from "./routes/routes";
 import { ToastContainer } from 'react-toastify';
+import Spinner from './components/Spinner';
 
 function App() {
   return (
@@ -7,6 +8,8 @@ function App() {
       <RoutersMain />
 
       <ToastContainer />
+
+      <Spinner />
     </>
   )
 }
