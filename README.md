@@ -1,5 +1,9 @@
 # React + TypeScript + Vite
 
+UI: https://tailadmin.com/download
+
+ROLE: https://www.npmjs.com/package/@casl/ability
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

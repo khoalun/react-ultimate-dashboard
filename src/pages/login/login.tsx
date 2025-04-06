@@ -22,52 +22,6 @@ function Login() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    // const bodyData = {
-    //   data: {
-    //     email: 'tony@gmail.com',
-    //     password: '123456',
-    //   }
-    // }
-    // axios('https://tony-auth-express-vdee-6j0s-fhovok9bu.vercel.app/api/user/signin', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   data: bodyData
-    // })
-    //   .then(res => {
-    //     toast.success('Login Successfully!', {
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //       hideProgressBar: false,
-    //       closeOnClick: false,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //     // const access_token = res.data.data.access_token;
-    //     // const refresh_token = res.data.data.refresh_token;
-    //     const { access_token, refresh_token } = res.data.data || {};
-    //     window.localStorage.setItem('access_token', access_token);
-    //     window.localStorage.setItem('refresh_token', refresh_token);
-    //     navigate(PATH.ROOT);
-    //   })
-    //   .catch(err => {
-    //     const message = err.response?.data?.msg || 'Login Fail!'
-    //     toast.error(message, {
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //       hideProgressBar: false,
-    //       closeOnClick: false,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //   })
-    //   .finally(() => {
-    //     // hide loading
-    //   })
     try {
       const bodyData = {
         data: {
@@ -93,7 +47,7 @@ function Login() {
       const refresh_token = res.data.data.refresh_token;
       window.localStorage.setItem('access_token', access_token);
       window.localStorage.setItem('refresh_token', refresh_token);
-      // navigate(PATH.ROOT);
+      navigate(PATH.ROOT);
     } catch (err: any) {
       const message = err.response?.data?.msg || 'Login Fail!'
       toast.error(message, {
@@ -106,15 +60,8 @@ function Login() {
         progress: undefined,
       });
     }
-    
   }
   
-  async function getUser() {
-    await httpRequest('/api/auth', {
-      method: 'POST',
-    })
-  }
-
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -171,14 +118,6 @@ function Login() {
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Sign in
-              </button>
-
-              <button
-                type="button"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                onClick={getUser}
-              >
-                get user
               </button>
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">

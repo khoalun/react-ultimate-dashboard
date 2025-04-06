@@ -9,4 +9,13 @@ export const PATH = {
   LANDING_PAGE: "/landing-page",
   UNAUTHORIED_PAGE:  "/401",
   RESTRICT_ACCESS_PAGE:  "/403",
+  PROFILE: "/profile",
+  CALENDAR: "/calendar"
+}
+
+export const USER_ROLE = {
+  ADMIN: 'admin',
+  OPERATOR: 'operator',
+  GUEST: "guest",
+  MEMBER: 'member'
 }

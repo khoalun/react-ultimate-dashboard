@@ -8,6 +8,7 @@ import './styles/tailwind.css';
 import './styles/index.css';
 
 import App from './App.tsx'
+import { AppWrapper } from './components/page-meta.tsx'
 import { SidebarProvider } from './contexts/sidebar-context.tsx';
 import { initRequest } from './services/initRequest.ts'
 
@@ -16,11 +17,13 @@ initRequest(store);
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <SidebarProvider>
-          <App />
-        </SidebarProvider>
-      </BrowserRouter>
+      <AppWrapper>
+        <BrowserRouter>
+          <SidebarProvider>
+              <App />
+          </SidebarProvider>
+        </BrowserRouter>
+      </AppWrapper>
     </Provider>
   </StrictMode>,
 )

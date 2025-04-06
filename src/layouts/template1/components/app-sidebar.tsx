@@ -16,6 +16,7 @@ import {
   UserCircleIcon,
 } from "../../../icons";
 import { useSidebar } from "../../../contexts/sidebar-context";
+import { PATH } from "../../../configs";
 
 type NavItem = {
   name: string;
@@ -28,17 +29,17 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    subItems: [{ name: "Ecommerce", path: PATH.ROOT, pro: false }],
   },
   {
     icon: <CalenderIcon />,
     name: "Calendar",
-    path: "/calendar",
+    path: PATH.CALENDAR,
   },
   {
     icon: <UserCircleIcon />,
     name: "User Profile",
-    path: "/profile",
+    path: PATH.PROFILE
   },
   {
     name: "Forms",

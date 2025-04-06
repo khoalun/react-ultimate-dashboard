@@ -3,7 +3,7 @@ import { setShowSpinner } from "../redux/appSlice";
 import { PATH } from "../configs";
 
 
-export interface IConfig<D = any> extends AxiosRequestConfig<D> {
+export interface CustomAxiosRequestConfig<D = any> extends AxiosRequestConfig<D> {
   headers: AxiosRequestHeaders;
   showSpinner?: boolean
 }
@@ -21,7 +21,7 @@ User request API A -> token expired -> auto send api refresh token -> auto get n
 */
 
 export function initRequest(store: any) {
-  httpRequest.interceptors.request.use((config: IConfig) => {
+  httpRequest.interceptors.request.use((config: CustomAxiosRequestConfig) => {
     config.headers['Content-Type'] = 'application/json';
 
     if(config.showSpinner) {
